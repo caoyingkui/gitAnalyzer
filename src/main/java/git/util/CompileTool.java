@@ -1,6 +1,5 @@
 package git.util;
 
-import javassist.compiler.Javac;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.*;
 
@@ -105,4 +104,30 @@ public class CompileTool {
         }
     }
 
+    /**
+     * 将函数的代码块去除
+     *
+     * @param code 一个函数定义代码
+     * @return
+     */
+    public static String removeMethodBody(String code) {
+        MethodDeclaration methodDeclaration = getMethodFromMethod(code);
+        methodDeclaration.setBody(null);
+        String str = methodDeclaration.toString().trim();
+        return str.substring(0, str.length() -1) + " {\n}";
+    }
+
+//    public static void main(String[] args) {
+//        try {
+//            String str = removeMethodBody("public static String removeMethodBody(String code) throws IOException {\n" +
+//                    "        MethodDeclaration methodDeclaration = getMethodFromMethod(code);\n" +
+//                    "        methodDeclaration.setBody(null);\n" +
+//                    "        String str = methodDeclaration.toString();\n" +
+//                    "        return str.substring(0, str.length() -1) + \" {\\n}\";\n" +
+//                    "    }");
+//            System.out.println(str);
+//        } catch (Exception e) {
+//            ;
+//        }
+//    }
 }
